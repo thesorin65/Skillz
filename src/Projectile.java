@@ -1,3 +1,5 @@
+import javafx.scene.shape.Circle;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -13,9 +15,11 @@ public class Projectile
 	private double angle;
 
 	private BufferedImage image;
+	private Circle hitbox;
 
 	private int updates = 0;
 	public static final int MAX_UPDATES = 50;
+
 
 	public Projectile(int x, int y, double velocity, double angle)
 	{
@@ -35,6 +39,7 @@ public class Projectile
 			e.printStackTrace();
 		}
 
+		hitbox = new Circle(x+image.getWidth()/2, y+image.getHeight()/2, image.getWidth()/1.8);
 		image = rotate(image, angle);
 	}
 
@@ -44,6 +49,8 @@ public class Projectile
 
 		x += Math.cos(angle) * velocity;
 		y += Math.sin(angle) * velocity;
+
+		hitbox = new Circle(x+image.getWidth()/2, y+image.getHeight()/2, image.getWidth()/1.8);
 
 	}
 
@@ -71,6 +78,16 @@ public class Projectile
 		g.drawImage(img, affineTransform, null);
 
 		return rotated;
+	}
+
+	public Circle getHitbox()
+	{
+		return hitbox;
+	}
+
+	public void setHitbox(Circle hitbox)
+	{
+		this.hitbox = hitbox;
 	}
 
 	public int getUpdates()

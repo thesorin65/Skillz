@@ -12,6 +12,9 @@ public class Panel extends JPanel implements KeyListener, MouseMotionListener, R
 	private BufferedImage morgana;
 	private BufferedImage morganaSpell;
 
+	private BufferedImage kaisaUp;
+	private BufferedImage kaisaDown;
+
 	private BufferedImage buffer;
 
 	private int mouseX;
@@ -39,6 +42,8 @@ public class Panel extends JPanel implements KeyListener, MouseMotionListener, R
 			background = ImageIO.read(new File("Botlane.PNG"));
 			morgana = ImageIO.read(new File("Morgana.PNG"));
 			morganaSpell = ImageIO.read(new File("MorganaSpell.PNG"));
+			kaisaUp = ImageIO.read(new File("Kai'sa_UpLeft.PNG"));
+			kaisaDown = ImageIO.read(new File("Kai'sa_DownRight.PNG"));
 		}
 		catch(Exception e)
 		{
@@ -70,7 +75,15 @@ public class Panel extends JPanel implements KeyListener, MouseMotionListener, R
 		if(projectile!=null)
 		{
 			bg.drawImage(projectile.getImage(), (int)projectile.getX(), (int)projectile.getY(), null);
+
+			if(projectile.getHitbox()!=null)
+				bg.drawOval((int)projectile.getHitbox().getCenterX()-(int)projectile.getHitbox().getRadius()/2,
+						(int)projectile.getHitbox().getCenterY()-(int)projectile.getHitbox().getRadius()/2,
+						(int)projectile.getHitbox().getRadius(),
+						(int)projectile.getHitbox().getRadius());
 		}
+
+		bg.drawImage(kaisaUp, 500, 500, null);
 
 		g.drawImage(buffer,0,0,null);
 	}
