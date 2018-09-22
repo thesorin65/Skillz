@@ -18,10 +18,10 @@ public class Projectile
 	private Circle hitbox;
 
 	private int updates = 0;
-	public static final int MAX_UPDATES = 50;
+	public static final int MAX_UPDATES = 85;
 
 
-	public Projectile(int x, int y, double velocity, double angle)
+	public Projectile(int x, int y, double velocity, double angle, BufferedImage image)
 	{
 		this.x = x;
 		this.y = y;
@@ -29,18 +29,10 @@ public class Projectile
 		if(angle<0)
 			angle+=Math.PI*2;
 		this.angle = -angle;
+		this.image = image;
 
-		try
-		{
-			image = ImageIO.read(new File("DarkBinding.PNG"));
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		hitbox = new Circle(x+image.getWidth()/2, y+image.getHeight()/2, image.getWidth()/1.8);
-		image = rotate(image, angle);
+		hitbox = new Circle(x+image.getWidth()/2, y+image.getHeight()/2, image.getWidth()/4.5);
+		this.image = rotate(image, angle);
 	}
 
 	public void update()
@@ -50,7 +42,8 @@ public class Projectile
 		x += Math.cos(angle) * velocity;
 		y += Math.sin(angle) * velocity;
 
-		hitbox = new Circle(x+image.getWidth()/2, y+image.getHeight()/2, image.getWidth()/1.8);
+		hitbox = new Circle(x+image.getWidth()/2, y+image.getHeight()/2, image.getWidth()/4.5);
+
 
 	}
 
